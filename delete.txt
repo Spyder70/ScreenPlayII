@@ -1,0 +1,35 @@
+useEffect(() => {
+    // Load comments from local storage
+    const storedComments = JSON.parse(localStorage.getItem('comments')) || [];
+    setComments(storedComments);
+    // ... (Other useEffect logic)
+  }, []);
+
+  // ... (Other functions)
+
+  const handleDeleteComment = (index) => {
+    const updatedComments = [...comments];
+    updatedComments.splice(index, 1);
+    setComments(updatedComments);
+    // Save the updated comments to local storage
+    localStorage.setItem('comments', JSON.stringify(updatedComments));
+  };
+
+------------------------------------------------------------------------------------
+
+  <div>
+        {comments.map((comment, index) => (
+          <div className="anime__review__item" key={index}>
+            <div className="anime__review__item__pic">
+              <img src="img/anime/review-6.jpg" alt="" />
+            </div>
+            <div className="anime__review__item__text">
+              <h6>
+                {comment.author} - <span>{comment.timestamp}</span>
+              </h6>
+              <p>{comment.content}</p>
+              <button onClick={() => handleDeleteComment(index)}>Delete Comment</button>
+            </div>
+          </div>
+        ))}
+      </div>
